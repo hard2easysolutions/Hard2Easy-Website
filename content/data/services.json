@@ -1,0 +1,79 @@
+{
+  "_help": "'What we do' cards. 'icon' must be one of: PenTool, LayoutDashboard, Workflow, AppWindow. 'items' are the bullet points shown when a card is opened. 'extras' are the three small boxes under the cards; a body can be plain text or a list of parts, where a part with 'href' becomes a link.",
+  "title": "What we do",
+  "subline": "Everything you need to take an idea from sketch to live, in one team. Click a card to see what is inside.",
+  "cards": [
+    {
+      "icon": "PenTool",
+      "title": "Product Design and Branding",
+      "description": "Your logo, brand identity and product screens, designed so your business looks credible from day one.",
+      "items": [
+        "Logo and brand identity",
+        "Brand guidelines",
+        "UI/UX design",
+        "Wireframes and clickable prototypes",
+        "Design systems"
+      ]
+    },
+    {
+      "icon": "LayoutDashboard",
+      "title": "Business Management Systems",
+      "description": "Custom tools to run your business: sales, inventory, bookings, invoices and reporting in one place.",
+      "items": [
+        "Custom CRM",
+        "Inventory and order management",
+        "Booking and scheduling systems",
+        "Invoicing and payment tracking",
+        "Admin dashboards and reporting",
+        "Staff and HR tools"
+      ]
+    },
+    {
+      "icon": "Workflow",
+      "title": "Digital Transformation and Automation",
+      "description": "Move from paper and spreadsheets to online systems, and automate repetitive tasks so your team saves time.",
+      "items": [
+        "Moving paper or spreadsheet processes online",
+        "Workflow automation",
+        "Integrations (payments, WhatsApp, email, accounting tools)",
+        "Data migration",
+        "Chatbots and AI assistants"
+      ]
+    },
+    {
+      "icon": "AppWindow",
+      "title": "Web and Mobile Apps",
+      "description": "Websites, web apps and mobile apps, from a first working version (MVP) to a full product.",
+      "items": [
+        "Company websites and landing pages",
+        "E-commerce stores",
+        "Web apps and SaaS products",
+        "Android and iOS apps",
+        "Backend and API development",
+        "MVP builds from sketch to launch"
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "title": "Included in every project:",
+      "body": "Project management, quality testing and post-launch support."
+    },
+    {
+      "title": "Also available: QA and testing:",
+      "body": "Already have an app or website? We test it for bugs, usability and performance, and give you a clear report."
+    },
+    {
+      "title": "Not sure where to start?:",
+      "body": [
+        {
+          "text": "Send us a message",
+          "href": "#contact"
+        },
+        {
+          "text": " and we will work it out together."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "_help": "'Trusted by' logos. IMPORTANT: get written permission from each client before showing their logo. Put the image in /public/clients/ and set 'logo' to its path, e.g. \"/clients/iretix.svg\". Entries with \"logo\": null show as grey placeholder boxes in development only and are hidden on the live site. 5 or more logos scroll as a marquee.",
+  "title": "Trusted by",
+  "subline": "Businesses and startups we have helped bring ideas to life.",
+  "placeholderLabel": "Client logo",
+  "logos": [
+    {
+      "name": "Iretix",
+      "logo": null,
+      "placeholder": "[Iretix logo]"
+    },
+    {
+      "name": "[client logo]",
+      "logo": null,
+      "placeholder": "[client logo]"
+    },
+    {
+      "name": "[client logo]",
+      "logo": null,
+      "placeholder": "[client logo]"
+    },
+    {
+      "name": "[client logo]",
+      "logo": null,
+      "placeholder": "[client logo]"
+    },
+    {
+      "name": "[client logo]",
+      "logo": null,
+      "placeholder": "[client logo]"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "_help": "Company name, legal name and logo files. Logo images live in /public/brand. To change a logo, replace the file (or point src at a new one) and update width/height to the new image pixel size.",
+  "name": "Hard2Easy Solutions",
+  "legalName": "Hard2Easy Solutions Ltd",
+  "tagline": "We turn hard business problems into easy software.",
+  "url": "[Website URL]",
+  "locality": "Lagos",
+  "country": "NG",
+  "logos": {
+    "onDark": {
+      "src": "/brand/lockup-on-dark.png",
+      "width": 1802,
+      "height": 362,
+      "_note": "Full logo for dark backgrounds (white \"Solutions\")."
+    },
+    "onLight": {
+      "src": "/brand/lockup-on-light.png",
+      "width": 1802,
+      "height": 362,
+      "_note": "Full logo for light backgrounds (black \"Solutions\")."
+    },
+    "mark": {
+      "src": "/brand/mark.png",
+      "width": 554,
+      "height": 362,
+      "_note": "HE mark on its own."
+    }
+  }
+}

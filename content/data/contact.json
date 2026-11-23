@@ -1,0 +1,47 @@
+{
+  "_help": "Contact section: headings, the 'What happens next' card and the contact form (labels, dropdown options, button text, error messages). Form submissions are emailed to the address in CONTACT_TO_EMAIL — not set here.",
+  "eyebrow": "Start your project",
+  "title": "Let us make it easy",
+  "intro": "Tell us what you need. We will read it, tell you honestly whether we can help, and reply with the next step.",
+  "next": {
+    "title": "What happens next",
+    "steps": [
+      "Fill in the form. It takes about two minutes.",
+      "We read it and reply by email or WhatsApp.",
+      "We agree the next step together, with no obligation."
+    ]
+  },
+  "form": {
+    "title": "Tell us about your project",
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone or WhatsApp (optional)",
+      "service": "What do you need?",
+      "message": "Tell us about your idea or problem"
+    },
+    "servicePlaceholder": "Choose one",
+    "serviceOptions": [
+      "Product Design and Branding",
+      "Business Management Systems",
+      "Digital Transformation and Automation",
+      "Web and Mobile Apps",
+      "QA and testing",
+      "Not sure yet"
+    ],
+    "submit": "Send Message",
+    "sending": "Sending",
+    "success": "Thanks — we'll be in touch",
+    "successNote": "Your message has reached our team. We will reply to the email you gave us.",
+    "sendAnother": "Send another message",
+    "errors": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid phone number.",
+      "message": "Please tell us a little more (at least 10 characters).",
+      "server": "Something went wrong. Please try again or email us directly."
+    },
+    "replyNote": "We will reply within [1 business day].",
+    "privacy": "[Privacy note — to be confirmed under Nigeria's data protection law]"
+  }
+}

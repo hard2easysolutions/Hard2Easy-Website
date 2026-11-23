@@ -1,0 +1,25 @@
+{
+  "_help": "Footer text and links. The big word at the bottom is 'wordmark'.",
+  "blurb": "Hard2Easy Solutions. We turn hard business problems into easy software.",
+  "links": [
+    {
+      "label": "Services",
+      "href": "#services"
+    },
+    {
+      "label": "Clients",
+      "href": "#clients"
+    },
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Contact us",
+      "href": "#contact"
+    }
+  ],
+  "legal": "© 2026 Hard2Easy Solutions Ltd. All rights reserved.",
+  "rcNumber": "Company Registration No. 10015330",
+  "wordmark": "Hard2Easy"
+}

@@ -1,26 +1,715 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------
+   Brand tokens — sampled from the Hard2Easy logo files.
+   The logo gradient runs orange → amber → lime → green:
+   the journey from "hard" (warm) to "easy" (green). The site uses that
+   journey as its one colour idea, on brand black (#050505) and white.
+   The default Tailwind palette is cleared so only these can be used.
+------------------------------------------------------------------- */
+@theme {
+  --color-*: initial;
+
+  /* Brand spectrum (fixed) */
+  --color-orange: #ff7a00;
+  --color-amber: #fbbf24;
+  --color-lime: #84cc16;
+  --color-green: #16a34a;
+  /* Deep variants — for text/marks on light surfaces (≥ 4.5:1 on white) */
+  --color-orange-deep: #c2410c;
+  --color-amber-deep: #b45309;
+  --color-lime-deep: #4d7c0f;
+  --color-green-deep: #15803d;
+
+  /* Neutrals (fixed) */
+  --color-ink: #050505;
+  --color-graphite: #141414;
+  --color-paper: #f5f5f1;
+  --color-paper-deep: #e9e9e3;
+  --color-mute-ink: #5c5c5c;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-live: #16a34a;
+  --color-line-ink: rgb(5 5 5 / 0.1);
+  --color-line-ink-strong: rgb(5 5 5 / 0.24);
+
+  /* Semantic, theme-aware tokens. Defaults = dark theme.
+     Re-declared below for light mode and for .tone-alt / .tone-dark scopes. */
+  --color-bg: #050505;
+  --color-raised: #111111;
+  --color-fg: #ffffff;
+  --color-mute: #9b9b9b;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-strong: rgb(255 255 255 / 0.18);
+  --color-accent: #16a34a;
+  --color-warm: #ff7a00;
+  --color-danger: #ff8a7a;
+  --color-step-1: #ff7a00;
+  --color-step-2: #fbbf24;
+  --color-step-3: #84cc16;
+  --color-step-4: #16a34a;
+
+  --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --radius-btn: 4px;
+  --radius-card: 16px;
+
+  --container-site: 1280px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-garamond), "EB Garamond", Garamond, "Times New Roman", serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------
+   Themes
+   - :root / .tone-dark      brand black (default)
+   - [data-theme=light] / .tone-alt   white / paper
+   .tone-alt = light "paper" sections in either theme (services, clients, about)
+   .tone-dark = always-dark islands (footer, hero device, About panel)
+------------------------------------------------------------------- */
+:root,
+.tone-dark {
+  color-scheme: dark;
+  --color-bg: #050505;
+  --color-raised: #111111;
+  --color-fg: #ffffff;
+  --color-mute: #9b9b9b;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-strong: rgb(255 255 255 / 0.18);
+  --color-accent: #16a34a;
+  --color-warm: #ff7a00;
+  --color-danger: #ff8a7a;
+  --color-step-1: #ff7a00;
+  --color-step-2: #fbbf24;
+  --color-step-3: #84cc16;
+  --color-step-4: #16a34a;
+  --grad-brand: linear-gradient(90deg, #ff7a00 0%, #fbbf24 30%, #84cc16 66%, #16a34a 100%);
+  --grad-easy: linear-gradient(90deg, #84cc16 0%, #16a34a 100%);
+}
+
+:root[data-theme="light"],
+.tone-alt {
+  color-scheme: light;
+  --color-bg: #ffffff;
+  --color-raised: #ffffff;
+  --color-fg: #050505;
+  --color-mute: #5c5c5c;
+  --color-line: rgb(5 5 5 / 0.1);
+  --color-line-strong: rgb(5 5 5 / 0.22);
+  --color-accent: #15803d;
+  --color-warm: #c2410c;
+  --color-danger: #c02626;
+  --color-step-1: #c2410c;
+  --color-step-2: #b45309;
+  --color-step-3: #4d7c0f;
+  --color-step-4: #15803d;
+  /* lime/amber fail contrast on white, so text gradients use deep stops */
+  --grad-easy: linear-gradient(90deg, #4d7c0f 0%, #15803d 100%);
+}
+
+.tone-alt {
+  --color-bg: #f5f5f1;
+}
+
+/* .tone-dark nested inside a light scope must win back the dark values */
+:root[data-theme="light"] .tone-dark,
+.tone-alt .tone-dark {
+  color-scheme: dark;
+  --color-bg: #050505;
+  --color-raised: #111111;
+  --color-fg: #ffffff;
+  --color-mute: #9b9b9b;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-strong: rgb(255 255 255 / 0.18);
+  --color-accent: #16a34a;
+  --color-warm: #ff7a00;
+  --color-danger: #ff8a7a;
+  --color-step-1: #ff7a00;
+  --color-step-2: #fbbf24;
+  --color-step-3: #84cc16;
+  --color-step-4: #16a34a;
+  --grad-easy: linear-gradient(90deg, #84cc16 0%, #16a34a 100%);
+}
+
+/* No-JS fallback: follow the OS when the script never set data-theme. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --color-bg: #ffffff;
+    --color-raised: #ffffff;
+    --color-fg: #050505;
+    --color-mute: #5c5c5c;
+    --color-line: rgb(5 5 5 / 0.1);
+    --color-line-strong: rgb(5 5 5 / 0.22);
+    --color-accent: #15803d;
+    --color-warm: #c2410c;
+    --color-danger: #c02626;
+    --grad-easy: linear-gradient(90deg, #4d7c0f 0%, #15803d 100%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.tone-alt,
+.tone-dark {
+  color: var(--color-fg);
+}
+
+/* Brand gradient helpers */
+@utility bg-brand {
+  background-image: var(--grad-brand);
+}
+
+@utility text-easy {
+  background-image: var(--grad-easy);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Theme-specific assets (logo lockups): CSS decides which one shows,
+   so server HTML never depends on the theme. */
+.theme-light-only {
+  display: none;
+}
+:root[data-theme="light"] .theme-light-only,
+.tone-alt .theme-light-only {
+  display: block;
+}
+:root[data-theme="light"] .theme-dark-only,
+.tone-alt .theme-dark-only {
+  display: none;
+}
+:root[data-theme="light"] .tone-dark .theme-dark-only {
+  display: block;
+}
+:root[data-theme="light"] .tone-dark .theme-light-only {
+  display: none;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .theme-light-only {
+    display: block;
+  }
+  :root:not([data-theme]) .theme-dark-only {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    overflow-x: clip;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.25s var(--ease-quint);
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.lenis) {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Type scale
+------------------------------------------------------------------- */
+@utility text-h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3rem, 7.6vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+}
+
+@utility text-h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+@utility text-h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.8vw + 0.95rem, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+@utility text-body {
+  font-size: clamp(1.0625rem, 0.25vw + 1rem, 1.125rem);
+  line-height: 1.6;
+}
+
+@utility text-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------
+   Texture: blueprint grid + noise (dark sections only)
+------------------------------------------------------------------- */
+@utility bp-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line, var(--color-line)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line, var(--color-line)) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+
+@utility bp-mask {
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 45%, #000 30%, transparent 100%);
+}
+
+@utility noise {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.035;
+}
+
+/* ------------------------------------------------------------------
+   Hero intro — CSS keyframes so the H1 (LCP) paints before hydration.
+   Each element sets --d (delay) inline.
+------------------------------------------------------------------- */
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+}
+
+@keyframes intro-word {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+}
+
+@keyframes intro-frame {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-bar {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.intro-rise {
+  animation: intro-rise 0.7s var(--ease-quint) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-word {
+  display: inline-block;
+  animation: intro-word 0.6s var(--ease-quint) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-frame {
+  animation: intro-frame 0.8s var(--ease-quint) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: intro-draw var(--dur, 0.9s) var(--ease-quint) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-bar {
+  transform-origin: bottom;
+  animation: intro-bar 0.6s var(--ease-quint) both;
+  animation-delay: var(--d, 0s);
+}
+
+.intro-fade {
+  animation: intro-fade 0.5s var(--ease-quint) both;
+  animation-delay: var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-rise,
+  .intro-word,
+  .intro-frame,
+  .intro-bar,
+  .intro-fade {
+    animation: none !important;
+  }
+
+  .intro-draw {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Marquee
+------------------------------------------------------------------- */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Theme toggle icon swap (CSS-driven so SSR never mismatches)
+------------------------------------------------------------------- */
+.theme-icon-sun {
+  display: block;
+}
+.theme-icon-moon {
+  display: none;
+}
+:root[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+:root[data-theme="light"] .theme-icon-moon {
+  display: block;
+}
+
+/* ------------------------------------------------------------------
+   Icon stroke redraw on hover (paths get pathLength="1" in JS)
+------------------------------------------------------------------- */
+@keyframes icon-redraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .group:hover .icon-draw [pathLength] {
+    stroke-dasharray: 1;
+    animation: icon-redraw 0.7s var(--ease-quint) both;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Live status pulse
+------------------------------------------------------------------- */
+@keyframes live-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.live-pulse {
+  animation: live-pulse 1.6s var(--ease-quint) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Horizontal carousel track (testimonials)
+------------------------------------------------------------------- */
+.snap-track {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.snap-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------
+   Hero orbit — one big circle, drawn with pseudo-elements.
+   ::before  thin ring tinted with the logo gradient (hard → easy), slowly turning
+   ::after   soft filled disc that gives the ring depth
+------------------------------------------------------------------- */
+.hero-orbit {
+  --orbit-size: clamp(560px, 92vw, 760px);
+  --orbit-x: 42%;
+  --orbit-y: -8%;
+  --orbit-fill: rgb(255 255 255 / 0.045);
+  --orbit-ring-opacity: 0.85;
+}
+
+:root[data-theme="light"] .hero-orbit {
+  --orbit-fill: rgb(5 5 5 / 0.035);
+  --orbit-ring-opacity: 1;
+}
+
+@media (min-width: 1024px) {
+  .hero-orbit {
+    --orbit-size: clamp(760px, 66vw, 1080px);
+    --orbit-x: 52%;
+    --orbit-y: 6%;
+  }
+}
+
+.hero-orbit::before,
+.hero-orbit::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: var(--orbit-x);
+  top: var(--orbit-y);
+  width: var(--orbit-size);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Gradient ring: a conic gradient masked down to a 1.5px circle. It fades
+   out on one side so it reads as an orbit, not a stamp. */
+.hero-orbit::before {
+  background: conic-gradient(
+    from 210deg,
+    transparent 0deg,
+    #ff7a00 50deg,
+    #fbbf24 110deg,
+    #84cc16 200deg,
+    #16a34a 255deg,
+    transparent 320deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  opacity: var(--orbit-ring-opacity);
+  animation:
+    orbit-in 1.4s var(--ease-quint) 0.3s both,
+    orbit-spin 36s linear infinite;
+}
+
+/* Filled disc, inset from the ring, lit from the top-left. */
+.hero-orbit::after {
+  transform: scale(0.78);
+  background: radial-gradient(circle at 32% 28%, var(--orbit-fill), transparent 70%);
+  border: 1px solid var(--color-line);
+  animation: orbit-disc-in 1.4s var(--ease-quint) 0.2s both;
+}
+
+@keyframes orbit-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes orbit-in {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+
+@keyframes orbit-disc-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orbit::before,
+  .hero-orbit::after {
+    animation: none;
+  }
+}
+
+/* Satellites: a track the same size as the hero ring, turning on its own
+   clock, carrying a green ("easy") dot and a smaller orange ("hard") dot. */
+.hero-orbit-track {
+  position: absolute;
+  z-index: -1;
+  left: var(--orbit-x);
+  top: var(--orbit-y);
+  width: var(--orbit-size);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------
+   Reusable orbit (components/ui/Orbit.jsx) — same language as the hero
+   circle, for sections that need a quieter echo of it.
+------------------------------------------------------------------- */
+.orbit > span {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+}
+
+.orbit-ring {
+  background: conic-gradient(
+    from 210deg,
+    transparent 0deg,
+    #ff7a00 50deg,
+    #fbbf24 110deg,
+    #84cc16 200deg,
+    #16a34a 255deg,
+    transparent 320deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  animation: orbit-spin var(--orbit-speed, 40s) linear infinite;
+}
+
+.orbit-disc {
+  transform: scale(0.78);
+  background: radial-gradient(circle at 32% 28%, var(--orbit-fill, rgb(255 255 255 / 0.045)), transparent 70%);
+  border: 1px solid var(--color-line);
+}
+
+:root[data-theme="light"] .orbit-disc,
+.tone-alt .orbit-disc {
+  --orbit-fill: rgb(5 5 5 / 0.035);
+}
+
+.orbit-track {
+  animation: orbit-spin var(--track-speed, 22s) linear infinite;
+}
+
+.orbit-dot {
+  position: absolute;
+  left: 50%;
+  border-radius: 9999px;
+  translate: -50% -50%;
+}
+
+.orbit-dot--easy {
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background: #16a34a;
+  box-shadow:
+    0 0 0 5px rgb(22 163 74 / 0.16),
+    0 0 22px 2px rgb(22 163 74 / 0.55);
+}
+
+.orbit-dot--hard {
+  top: 100%;
+  width: 7px;
+  height: 7px;
+  background: #ff7a00;
+  box-shadow:
+    0 0 0 4px rgb(255 122 0 / 0.14),
+    0 0 16px 1px rgb(255 122 0 / 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-track {
+    animation: none;
+  }
+}
+
+/* Dot grid — a quieter texture than the line grid, used inside panels. */
+@utility bp-dots {
+  background-image: radial-gradient(var(--color-line-strong) 1px, transparent 1.3px);
+  background-size: 18px 18px;
+  background-position: center;
+}
+
+/* The orbit is positioned by HeroOrbitFit (it measures the text so the circle
+   never touches it). Hold it back — and its intro animation — until then. */
+.hero-orbit:not([data-orbit-ready])::before,
+.hero-orbit:not([data-orbit-ready])::after,
+.hero-orbit:not([data-orbit-ready]) .hero-orbit-track {
+  visibility: hidden;
+  animation-play-state: paused;
+}
+
+/* Hide a scroll container's scrollbar but keep it scrollable. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Pointer cursor on everything clickable. Tailwind v4's preflight resets
+   buttons to the default cursor; this restores the hand everywhere.
+   (Utilities like cursor-ew-resize on the hero slider still win.)
+------------------------------------------------------------------- */
+@layer base {
+  a[href],
+  button:not(:disabled),
+  [role="button"],
+  [role="tab"],
+  [role="slider"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  label[for],
+  select,
+  summary,
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }

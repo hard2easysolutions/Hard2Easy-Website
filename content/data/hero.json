@@ -1,0 +1,104 @@
+{
+  "_help": "The first screen. headline.lead is the white part; headline.accent is the green part with the hand-drawn underline. visual.screen is the fake dashboard inside the Sketch → Live slider (illustrative data only).",
+  "headline": {
+    "lead": "We turn hard business problems into",
+    "accent": "easy software."
+  },
+  "subtext": "Hard2Easy Solutions designs, builds and launches websites, apps and business systems for startups, entrepreneurs and growing businesses. Start with an idea or a sketch, and we take it live.",
+  "primaryCta": {
+    "label": "Tell Us About Your Project",
+    "href": "#contact"
+  },
+  "secondaryCta": {
+    "label": "See Our Work",
+    "href": "#clients"
+  },
+  "chips": [
+    "Free consultation",
+    "Sketch to live",
+    "Design, build, test, support"
+  ],
+  "visual": {
+    "sketchLabel": "Sketch",
+    "liveLabel": "Live",
+    "screen": {
+      "title": "Overview",
+      "search": "Search",
+      "user": "AO",
+      "nav": [
+        "Overview",
+        "Orders",
+        "Inventory",
+        "Invoices",
+        "Reports"
+      ],
+      "kpis": [
+        {
+          "label": "Revenue",
+          "value": "₦4.82M",
+          "delta": "+12.4%"
+        },
+        {
+          "label": "Orders",
+          "value": "1,284",
+          "delta": "+8.1%"
+        },
+        {
+          "label": "Bookings",
+          "value": "312",
+          "delta": "+3.6%"
+        }
+      ],
+      "chart": {
+        "title": "Weekly sales",
+        "days": [
+          "M",
+          "T",
+          "W",
+          "T",
+          "F",
+          "S",
+          "S"
+        ],
+        "values": [
+          42,
+          58,
+          50,
+          74,
+          92,
+          66,
+          48
+        ]
+      },
+      "list": {
+        "title": "Recent orders",
+        "rows": [
+          {
+            "initials": "AO",
+            "name": "Adaeze O.",
+            "meta": "2 items",
+            "amount": "₦48,500"
+          },
+          {
+            "initials": "TB",
+            "name": "Tunde B.",
+            "meta": "1 item",
+            "amount": "₦12,000"
+          },
+          {
+            "initials": "KM",
+            "name": "Kemi M.",
+            "meta": "5 items",
+            "amount": "₦96,200"
+          },
+          {
+            "initials": "IE",
+            "name": "Ifeanyi E.",
+            "meta": "3 items",
+            "amount": "₦31,750"
+          }
+        ]
+      }
+    }
+  }
+}

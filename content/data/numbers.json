@@ -1,0 +1,22 @@
+{
+  "_help": "The numbers strip under the hero. Only items whose 'value' is a real number (not text like \"[00+]\") are shown. 'suffix' is optional text after the number.",
+  "items": [
+    {
+      "value": "[00+]",
+      "label": "Projects delivered"
+    },
+    {
+      "value": "[00+]",
+      "label": "Happy clients"
+    },
+    {
+      "value": "[00]",
+      "label": "Years of experience"
+    },
+    {
+      "value": 1,
+      "suffix": " team",
+      "label": "From sketch to live"
+    }
+  ]
+}

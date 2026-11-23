@@ -1,0 +1,27 @@
+{
+  "_help": "About section. 'paragraphs' are shown in order. 'pillars' are the numbered list. 'wordmark' is the big Hard → Easy graphic.",
+  "eyebrow": "About Hard2Easy",
+  "title": "Technology made simple",
+  "paragraphs": [
+    "Hard2Easy Solutions is a software and technology company based in Lagos, Nigeria. We help startups, entrepreneurs and growing businesses turn ideas into working digital products and make complicated processes simple.",
+    "We are a skilled and diligent team that designs, builds, tests and supports everything we deliver, to international standards. Our name is our promise: whatever feels hard about technology, we make it easy."
+  ],
+  "pillars": [
+    {
+      "title": "A skilled team:",
+      "body": "Designers, developers and testers who know their craft and keep learning."
+    },
+    {
+      "title": "Diligent delivery:",
+      "body": "Clear communication, honest timelines and regular updates from start to finish."
+    },
+    {
+      "title": "Built around your goals:",
+      "body": "We start with what your business needs, not with what is trendy."
+    }
+  ],
+  "wordmark": {
+    "from": "Hard",
+    "to": "Easy"
+  }
+}

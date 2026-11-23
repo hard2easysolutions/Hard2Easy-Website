@@ -1,0 +1,28 @@
+{
+  "_help": "Small interface labels, mostly read aloud by screen readers (button names, menu labels). Keep them short and descriptive.",
+  "skipLink": "Skip to content",
+  "menuOpen": "Open menu",
+  "menuClose": "Close menu",
+  "menuLabel": "Menu",
+  "menuContact": "Get in touch",
+  "menuEmail": "Email",
+  "menuWhatsApp": "WhatsApp",
+  "sliderLabel": "Compare sketch and live screen",
+  "sliderHint": "Drag to compare",
+  "backToTop": "Back to top",
+  "themeToLight": "Switch to light mode",
+  "themeToDark": "Switch to dark mode",
+  "carouselPrev": "Previous testimonial",
+  "carouselNext": "Next testimonial",
+  "carouselGoTo": "Go to testimonial",
+  "expand": "Show what is included",
+  "navPrimary": "Primary",
+  "navMobile": "Mobile",
+  "navFooter": "Footer",
+  "numbersLabel": "In numbers",
+  "socialNames": {
+    "linkedin": "LinkedIn",
+    "x": "X",
+    "instagram": "Instagram"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "_help": "'How we work' section. Each step is numbered automatically (01, 02…) in the order listed. visual = small labels inside the step illustrations.",
+  "title": "From a rough sketch to a live product",
+  "intro": "You do not need a finished brief. Whether you have a full plan or a rough sketch on paper, we work with you from the very start and stay until your product is live.",
+  "steps": [
+    {
+      "title": "Idea or sketch",
+      "body": "Tell us what you want to build. We ask the right questions and turn your idea into a clear plan."
+    },
+    {
+      "title": "Design and plan",
+      "body": "We design the screens, agree the features and scope, and show you what it will look like before we build."
+    },
+    {
+      "title": "Build and test",
+      "body": "We build in stages, test as we go, and share progress so there are no surprises."
+    },
+    {
+      "title": "Go live and support",
+      "body": "We launch your product and stay on to fix issues and keep it running smoothly."
+    }
+  ],
+  "visual": {
+    "log": [
+      "build ok",
+      "12 tests passing",
+      "checkout flow ok",
+      "ready to ship"
+    ],
+    "live": "Live",
+    "url": "yourproduct.com"
+  }
+}

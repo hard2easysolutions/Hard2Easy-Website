@@ -1,0 +1,29 @@
+{
+  "_help": "Top navigation links and the 'Start a Project' button. 'id' must match a section id on the page (services, clients, about, contact).",
+  "links": [
+    {
+      "label": "Services",
+      "href": "#services",
+      "id": "services"
+    },
+    {
+      "label": "Clients",
+      "href": "#clients",
+      "id": "clients"
+    },
+    {
+      "label": "About",
+      "href": "#about",
+      "id": "about"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact",
+      "id": "contact"
+    }
+  ],
+  "cta": {
+    "label": "Start a Project",
+    "href": "#contact"
+  }
+}
