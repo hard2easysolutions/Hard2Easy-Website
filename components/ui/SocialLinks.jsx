@@ -14,29 +14,29 @@ const ICONS = {
 
 const LABELS = site.ui.socialNames;
 
-/** Round social icon links. Placeholder URLs render without an href. */
+/** Round social icon links, opening in a new tab. Networks without a real URL yet are hidden. */
 export default function SocialLinks({ social, className = "" }) {
+  const links = Object.entries(social).filter(([, url]) => !isPlaceholder(url));
+  if (links.length === 0) return null;
+
   return (
-    <ul className={`flex items-center gap-2 ${className}`}>
-      {Object.entries(social).map(([key, url]) => {
-        const placeholder = isPlaceholder(url);
-        return (
-          <li key={key}>
-            <a
-              href={placeholder ? undefined : url}
-              aria-label={`${LABELS[key]} ${placeholder ? url : ""}`.trim()}
-              title={url}
-              target={placeholder ? undefined : "_blank"}
-              rel={placeholder ? undefined : "noopener noreferrer"}
-              className="flex size-11 items-center justify-center rounded-full border border-line-strong text-fg/80 transition-[transform,color,border-color] duration-200 ease-quint hover:-translate-y-0.5 hover:border-fg/40 hover:text-fg"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true" className="size-4">
-                {ICONS[key]}
-              </svg>
-            </a>
-          </li>
-        );
-      })}
+    <ul className={`flex flex-wrap items-center gap-2 ${className}`}>
+      {links.map(([key, url]) => (
+        <li key={key}>
+          <a
+            href={url}
+            aria-label={LABELS[key]}
+            title={LABELS[key]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-line-strong text-fg/80 transition-[transform,color,border-color] duration-200 ease-quint hover:-translate-y-0.5 hover:border-fg/40 hover:text-fg"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true" className="size-4">
+              {ICONS[key]}
+            </svg>
+          </a>
+        </li>
+      ))}
     </ul>
   );
 }

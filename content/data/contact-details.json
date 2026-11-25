@@ -1,13 +1,13 @@
 {
-  "_help": "Email, phone, WhatsApp, location and social links. Used in the Contact section, mobile menu and footer. 'whatsapp' should be digits only in international format, e.g. 2348012345678. Anything in [square brackets] is a placeholder — the site shows it as plain text (no link) until you replace it.",
+  "_help": "Email, phone, WhatsApp, location and social links. Used in the Contact section, mobile menu and footer. 'whatsapp' should be digits only in international format, e.g. 2348012345678. Anything in [square brackets] is a placeholder — the site shows it as plain text (no link) until you replace it. Social icons stay hidden until they have a full https:// link.",
   "email": "hard2easysolutions@gmail.com",
   "phone": "[Phone / WhatsApp]",
   "whatsapp": "[Phone / WhatsApp]",
   "location": "Lagos, Nigeria",
   "replyTime": "[1 business day]",
   "social": {
-    "linkedin": "[LinkedIn]",
+    "linkedin": "https://www.linkedin.com/company/hard2easysolutions",
     "x": "[X]",
-    "instagram": "[Instagram]"
+    "instagram": "https://www.instagram.com/hard2easysolutions/"
   }
 }

@@ -12,7 +12,7 @@ import { EASE } from "@/components/ui/motion";
  *   Enter / Space / Tab picks · Esc closes · click outside closes
  * `value` is "" when nothing is chosen.
  */
-export default function SelectMenu({ id, label, placeholder, options, value, onChange, onBlur, name }) {
+export default function SelectMenu({ id, label, placeholder, options, value, onChange, onBlur, name, error, fieldRef }) {
   const reduce = useReducedMotion();
   const listId = useId();
   const rootRef = useRef(null);
@@ -129,87 +129,100 @@ export default function SelectMenu({ id, label, placeholder, options, value, onC
   };
 
   return (
-    <div ref={rootRef} className="relative">
-      <span id={`${id}-label`} className={`pointer-events-none absolute top-2 left-4 z-1 text-[12px] transition-colors ${open ? "text-accent" : "text-mute"}`}>
-        {label}
-      </span>
+    <div>
+      <div ref={rootRef} className="relative">
+        <span id={`${id}-label`} className={`pointer-events-none absolute top-2 left-4 z-1 text-[12px] transition-colors ${open ? "text-accent" : "text-mute"}`}>
+          {label}
+        </span>
 
-      <button
-        ref={buttonRef}
-        id={id}
-        name={name}
-        type="button"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={listId}
-        aria-labelledby={`${id}-label ${id}`}
-        aria-activedescendant={open && active >= 0 ? optionId(active) : undefined}
-        onClick={() => (open ? closeMenu() : openMenu())}
-        onKeyDown={onKeyDown}
-        onBlur={(e) => {
-          if (!rootRef.current?.contains(e.relatedTarget)) onBlur?.();
-        }}
-        className={`flex h-14 w-full cursor-pointer items-center justify-between gap-3 rounded-btn border bg-transparent px-4 pt-5 pb-1 text-left text-[16px] transition-colors duration-200 outline-none focus-visible:border-accent focus-visible:ring-1 focus-visible:ring-accent ${
-          open ? "border-accent ring-1 ring-accent" : "border-line-strong hover:border-fg/40"
-        }`}
-      >
-        <span className={`truncate ${value ? "text-fg" : "text-mute"}`}>{value || placeholder}</span>
-        <ChevronDown
-          aria-hidden="true"
-          strokeWidth={1.5}
-          className={`-mt-4 size-4 shrink-0 text-mute transition-transform duration-300 ease-quint ${open ? "rotate-180 text-accent" : ""}`}
-        />
-      </button>
+        <button
+          ref={(el) => {
+            buttonRef.current = el;
+            fieldRef?.(el); // lets the form focus this field when it has an error
+          }}
+          id={id}
+          name={name}
+          type="button"
+          role="combobox"
+          aria-required="true"
+          aria-invalid={error ? "true" : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-labelledby={`${id}-label ${id}`}
+          aria-activedescendant={open && active >= 0 ? optionId(active) : undefined}
+          onClick={() => (open ? closeMenu() : openMenu())}
+          onKeyDown={onKeyDown}
+          onBlur={(e) => {
+            if (!rootRef.current?.contains(e.relatedTarget)) onBlur?.();
+          }}
+          className={`flex h-14 w-full cursor-pointer items-center justify-between gap-3 rounded-btn border bg-transparent px-4 pt-5 pb-1 text-left text-[16px] transition-colors duration-200 outline-none focus-visible:border-accent focus-visible:ring-1 focus-visible:ring-accent ${
+            open ? "border-accent ring-1 ring-accent" : error ? "border-danger" : "border-line-strong hover:border-fg/40"
+          }`}
+        >
+          <span className={`truncate ${value ? "text-fg" : "text-mute"}`}>{value || placeholder}</span>
+          <ChevronDown
+            aria-hidden="true"
+            strokeWidth={1.5}
+            className={`-mt-4 size-4 shrink-0 text-mute transition-transform duration-300 ease-quint ${open ? "rotate-180 text-accent" : ""}`}
+          />
+        </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.ul
-            ref={listRef}
-            id={listId}
-            role="listbox"
-            aria-labelledby={`${id}-label`}
-            data-lenis-prevent
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: dropUp ? 6 : -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: dropUp ? 4 : -4, scale: 0.98, transition: { duration: 0.15 } }}
-            transition={{ duration: 0.22, ease: EASE }}
-            style={{ transformOrigin: dropUp ? "bottom center" : "top center" }}
-            className={`no-scrollbar absolute inset-x-0 z-30 max-h-80 overflow-y-auto overscroll-contain rounded-[12px] border border-line-strong bg-raised p-1.5 ${
-              dropUp ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"
-            }`}
-          >
-            {options.map((option, i) => {
-              const selected = option === value;
-              const highlighted = i === active;
-              return (
-                <li
-                  key={option}
-                  id={optionId(i)}
-                  data-index={i}
-                  role="option"
-                  aria-selected={selected}
-                  onPointerMove={() => setActive(i)}
-                  onPointerDown={(e) => e.preventDefault() /* keep focus on the button */}
-                  onClick={() => choose(i)}
-                  className={`relative flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-[8px] px-3 py-2.5 text-[15px] leading-snug transition-colors duration-150 ${
-                    highlighted ? "bg-fg/6 text-fg" : "text-fg/80"
-                  } ${selected ? "font-medium text-fg" : ""}`}
-                >
-                  <span className="flex items-center gap-3">
-                    <span
-                      aria-hidden="true"
-                      className={`h-4 w-0.5 rounded-full transition-colors duration-150 ${selected ? "bg-accent" : highlighted ? "bg-fg/25" : "bg-transparent"}`}
-                    />
-                    {option}
-                  </span>
-                  {selected && <Check aria-hidden="true" strokeWidth={2} className="size-4 shrink-0 text-accent" />}
-                </li>
-              );
-            })}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {open && (
+            <motion.ul
+              ref={listRef}
+              id={listId}
+              role="listbox"
+              aria-labelledby={`${id}-label`}
+              data-lenis-prevent
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: dropUp ? 6 : -6, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: dropUp ? 4 : -4, scale: 0.98, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.22, ease: EASE }}
+              style={{ transformOrigin: dropUp ? "bottom center" : "top center" }}
+              className={`no-scrollbar absolute inset-x-0 z-30 max-h-80 overflow-y-auto overscroll-contain rounded-[12px] border border-line-strong bg-raised p-1.5 ${
+                dropUp ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"
+              }`}
+            >
+              {options.map((option, i) => {
+                const selected = option === value;
+                const highlighted = i === active;
+                return (
+                  <li
+                    key={option}
+                    id={optionId(i)}
+                    data-index={i}
+                    role="option"
+                    aria-selected={selected}
+                    onPointerMove={() => setActive(i)}
+                    onPointerDown={(e) => e.preventDefault() /* keep focus on the button */}
+                    onClick={() => choose(i)}
+                    className={`relative flex min-h-11 cursor-pointer items-center justify-between gap-3 rounded-[8px] px-3 py-2.5 text-[15px] leading-snug transition-colors duration-150 ${
+                      highlighted ? "bg-fg/6 text-fg" : "text-fg/80"
+                    } ${selected ? "font-medium text-fg" : ""}`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <span
+                        aria-hidden="true"
+                        className={`h-4 w-0.5 rounded-full transition-colors duration-150 ${selected ? "bg-accent" : highlighted ? "bg-fg/25" : "bg-transparent"}`}
+                      />
+                      {option}
+                    </span>
+                    {selected && <Check aria-hidden="true" strokeWidth={2} className="size-4 shrink-0 text-accent" />}
+                  </li>
+                );
+              })}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+      {error && (
+        <p id={`${id}-error`} className="mt-2 text-[13px] text-danger">
+          {error.message}
+        </p>
+      )}
     </div>
   );
 }

@@ -35,8 +35,8 @@ function buildEmail({ name, email, phone, service, message }) {
   const rows = [
     ["Name", name],
     ["Email", email],
-    ["Phone / WhatsApp", phone || "—"],
-    ["Needs", service || "—"],
+    ["Call / WhatsApp", phone],
+    ["Needs", service],
   ];
   const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nMessage:\n${message}\n\n— Sent from the Hard2Easy website contact form. Reply to this email to answer ${name}.`;
   const html = `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;line-height:1.55;color:#050505;max-width:600px">
@@ -94,7 +94,7 @@ export async function POST(request) {
   }
 
   const { text, html } = buildEmail(data);
-  const subject = `New enquiry from ${data.name}${data.service ? ` — ${data.service}` : ""}`;
+  const subject = `New enquiry from ${data.name} — ${data.service}`;
 
   try {
     const res = await fetch("https://api.resend.com/emails", {
