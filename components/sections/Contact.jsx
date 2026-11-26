@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import Orbit from "@/components/ui/Orbit";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Reveal from "@/components/ui/Reveal";
-import { isPlaceholder } from "@/content/derive";
+import { isPlaceholder, whatsappHref } from "@/content/derive";
 import ContactForm from "./contact/ContactForm";
 
 function ContactLine({ icon: Icon, href, children }) {
@@ -29,7 +29,6 @@ function ContactLine({ icon: Icon, href, children }) {
 
 export default function Contact() {
   const { contactSection: c, contact } = site;
-  const digits = contact.whatsapp.replace(/\D/g, "");
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="relative isolate overflow-hidden bg-bg py-24 md:py-32 lg:py-40">
@@ -68,9 +67,11 @@ export default function Contact() {
                 <ContactLine icon={Mail} href={isPlaceholder(contact.email) ? null : `mailto:${contact.email}`}>
                   {contact.email}
                 </ContactLine>
-                <ContactLine icon={MessageCircle} href={digits ? `https://wa.me/${digits}` : null}>
-                  {contact.phone}
-                </ContactLine>
+                {contact.phones.map((phone) => (
+                  <ContactLine key={phone} icon={MessageCircle} href={whatsappHref(phone)}>
+                    {phone}
+                  </ContactLine>
+                ))}
                 <ContactLine icon={MapPin}>{contact.location}</ContactLine>
               </ul>
               <p className="mt-5 text-[12px] leading-relaxed text-mute">{c.form.privacy}</p>

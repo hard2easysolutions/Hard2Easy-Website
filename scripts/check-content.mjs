@@ -34,8 +34,7 @@ const schemas = {
   "seo.json": z.object({ title: str, description: str }),
   "contact-details.json": z.object({
     email: str,
-    phone: str,
-    whatsapp: str,
+    phones: z.array(str).min(1),
     location: str,
     replyTime: str,
     social: z.object({ linkedin: str, x: str, instagram: str }),

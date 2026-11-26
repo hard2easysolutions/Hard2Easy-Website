@@ -24,3 +24,6 @@ export const placeholderPattern = /^\[.*\]$/;
 
 /** True when a contact value is still a [placeholder]. */
 export const isPlaceholder = (v) => typeof v === "string" && placeholderPattern.test(v.trim());
+
+/** WhatsApp link for a phone number, or undefined while it is still a [placeholder]. */
+export const whatsappHref = (phone) => (isPlaceholder(phone) ? undefined : `https://wa.me/${phone.replace(/\D/g, "")}`);

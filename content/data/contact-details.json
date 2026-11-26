@@ -1,8 +1,7 @@
 {
-  "_help": "Email, phone, WhatsApp, location and social links. Used in the Contact section, mobile menu and footer. 'whatsapp' should be digits only in international format, e.g. 2348012345678. Anything in [square brackets] is a placeholder — the site shows it as plain text (no link) until you replace it. Social icons stay hidden until they have a full https:// link.",
+  "_help": "Email, phone, WhatsApp, location and social links. Used in the Contact section, mobile menu and footer. 'phones' lists your WhatsApp numbers in international format, e.g. +234 801 234 5678; each one becomes a WhatsApp link. Anything in [square brackets] is a placeholder — the site shows it as plain text (no link) until you replace it. Social icons stay hidden until they have a full https:// link.",
   "email": "hard2easysolutions@gmail.com",
-  "phone": "[Phone / WhatsApp]",
-  "whatsapp": "[Phone / WhatsApp]",
+  "phones": ["+234 703 045 5742", "+234 913 414 9564"],
   "location": "Lagos, Nigeria",
   "replyTime": "[1 business day]",
   "social": {

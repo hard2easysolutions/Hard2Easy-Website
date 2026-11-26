@@ -3,14 +3,13 @@ import { site } from "@/content/site";
 import Container from "@/components/ui/Container";
 import Logo from "@/components/ui/Logo";
 import Reveal from "@/components/ui/Reveal";
-import { isPlaceholder, navLinks } from "@/content/derive";
+import { isPlaceholder, navLinks, whatsappHref } from "@/content/derive";
 import SocialLinks from "@/components/ui/SocialLinks";
 import BackToTop from "./footer/BackToTop";
 
 export default function Footer() {
   const { footer, brand, contact, ui } = site;
   const links = footer.links.filter((l) => l.href !== "#clients" || navLinks().some((n) => n.id === "clients"));
-  const digits = contact.whatsapp.replace(/\D/g, "");
 
   return (
     <footer className="tone-dark relative overflow-hidden border-t border-line bg-bg text-fg">
@@ -44,15 +43,17 @@ export default function Footer() {
                   {contact.email}
                 </a>
               </li>
-              <li>
-                <a
-                  href={digits ? `https://wa.me/${digits}` : undefined}
-                  className="inline-flex min-h-11 items-center gap-3 transition-colors hover:text-fg"
-                >
-                  <MessageCircle aria-hidden="true" strokeWidth={1.5} className="size-4 text-accent" />
-                  {contact.phone}
-                </a>
-              </li>
+              {contact.phones.map((phone) => (
+                <li key={phone}>
+                  <a
+                    href={whatsappHref(phone)}
+                    className="inline-flex min-h-11 items-center gap-3 transition-colors hover:text-fg"
+                  >
+                    <MessageCircle aria-hidden="true" strokeWidth={1.5} className="size-4 text-accent" />
+                    {phone}
+                  </a>
+                </li>
+              ))}
             </ul>
             <SocialLinks social={contact.social} className="mt-5" />
           </div>

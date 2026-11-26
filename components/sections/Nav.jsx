@@ -10,14 +10,13 @@ import { EASE } from "@/components/ui/motion";
 import { scrollToTarget, useLenis } from "@/components/providers/SmoothScroll";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import SocialLinks from "@/components/ui/SocialLinks";
-import { isPlaceholder, navLinks } from "@/content/derive";
+import { isPlaceholder, navLinks, whatsappHref } from "@/content/derive";
 
 const NAV_LINKS = navLinks();
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function Nav() {
   const { nav: navContent, brand, ui, contact } = site;
-  const waDigits = contact.whatsapp.replace(/\D/g, "");
   const nav = { ...navContent, links: NAV_LINKS };
   const lenis = useLenis();
   const reduce = useReducedMotion();
@@ -317,15 +316,13 @@ export default function Nav() {
                     </div>
                     <div className="min-w-0">
                       <dt className="text-[12px] text-mute">{ui.menuWhatsApp}</dt>
-                      <dd className="mt-1 truncate">
-                        {waDigits ? (
-                          <a href={`https://wa.me/${waDigits}`} className="underline-offset-4 hover:underline">
-                            {contact.phone}
+                      {contact.phones.map((phone) => (
+                        <dd key={phone} className="mt-1">
+                          <a href={whatsappHref(phone)} className="underline-offset-4 hover:underline">
+                            {phone}
                           </a>
-                        ) : (
-                          contact.phone
-                        )}
-                      </dd>
+                        </dd>
+                      ))}
                     </div>
                   </dl>
                   <div className="mt-6 flex items-center justify-between gap-4">
